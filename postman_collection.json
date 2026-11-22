@@ -1,0 +1,23 @@
+{
+  "info": { "name": "Candidate Vacancy Ranking API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000/api" }, { "key": "candidateId", "value": "" }, { "key": "vacancyId", "value": "" }],
+  "item": [
+    { "name": "Candidates", "item": [
+      { "name": "Create Candidate", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\n  \"name\": \"Budi\",\n  \"email\": \"budi@example.com\",\n  \"birthday\": \"1998-03-20\",\n  \"gender\": \"male\",\n  \"currentSalary\": 6000000\n}" }, "url": "{{baseUrl}}/candidates" } },
+      { "name": "List Candidates", "request": { "method": "GET", "url": "{{baseUrl}}/candidates?page=1&limit=20" } },
+      { "name": "Get Candidate", "request": { "method": "GET", "url": "{{baseUrl}}/candidates/{{candidateId}}" } },
+      { "name": "Update Candidate", "request": { "method": "PATCH", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode":"raw", "raw":"{\n  \"currentSalary\": 6500000\n}" }, "url": "{{baseUrl}}/candidates/{{candidateId}}" } },
+      { "name": "Delete Candidate", "request": { "method": "DELETE", "url": "{{baseUrl}}/candidates/{{candidateId}}" } }
+    ]},
+    { "name": "Vacancies", "item": [
+      { "name": "Create Vacancy with Criteria", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode":"raw", "raw":"{\n  \"name\": \"Backend Developer\",\n  \"criteria\": [\n    {\"type\":\"age\",\"details\":{\"min\":22,\"max\":30},\"weight\":3},\n    {\"type\":\"gender\",\"details\":{\"value\":\"any\"}},\n    {\"type\":\"salary\",\"details\":{\"min\":4500000,\"max\":6500000},\"weight\":5}\n  ]\n}" }, "url":"{{baseUrl}}/vacancies" } },
+      { "name": "List Vacancies", "request": { "method":"GET", "url":"{{baseUrl}}/vacancies?page=1&limit=20" } },
+      { "name": "Get Vacancy", "request": { "method":"GET", "url":"{{baseUrl}}/vacancies/{{vacancyId}}" } },
+      { "name": "Update Vacancy", "request": { "method":"PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  \"name\": \"Backend Developer Senior\",\n  \"criteria\": [\n    {\"type\":\"age\",\"details\":{\"min\":25,\"max\":35},\"weight\":2},\n    {\"type\":\"gender\",\"details\":{\"value\":\"any\"},\"weight\":1},\n    {\"type\":\"salary\",\"details\":{\"min\":6000000,\"max\":9000000},\"weight\":4}\n  ]\n}"}, "url":"{{baseUrl}}/vacancies/{{vacancyId}}" } },
+      { "name": "Delete Vacancy", "request": { "method":"DELETE", "url":"{{baseUrl}}/vacancies/{{vacancyId}}" } }
+    ]},
+    { "name": "Ranking", "item": [
+      { "name": "Rank Candidates", "request": { "method":"GET", "url":"{{baseUrl}}/vacancies/{{vacancyId}}/ranking?page=1&limit=20" } }
+    ]}
+  ]
+}
